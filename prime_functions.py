@@ -1,31 +1,36 @@
 def getPrimes(n):
     primes = []
     for x in range(2,n+1):
-        isPrime = True
+        p = True
         for i in primes:
             if i**2 > x:
                 break
             elif x%i == 0:
-                isPrime = False
+                p = False
                 break
-        if isPrime:
+        if p:
             primes.append(x)
     return(primes)
 
+
 def getPrimeDivisors(n,primes):
-    primedivisors = dict()
+    primedivisors = []
+    y = n
     for prime in primes:
+        if prime > y:
+            break
         index = 0
-        y = prime
-        while n%y == 0:
+        while y%prime == 0:
             index+=1
-            y*=prime
-        if index >0:
-            primedivisors[prime] = index
+            y=int(y/prime)
+        if index > 0:
+            primedivisors.append([prime,index])
     return primedivisors
 
-primes = getPrimes(28123)
-
-print('done!')
-for n in range(1,28123):
-    print(getPrimeDivisors(n,primes))
+def isPrime(n):
+    i = 2
+    while i**2 < n:
+        if n%i ==0:
+            return False
+        i+=1
+    return True
